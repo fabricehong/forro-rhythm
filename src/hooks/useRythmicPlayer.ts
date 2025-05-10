@@ -54,11 +54,22 @@ export function useRythmicPlayer({
   const tuVol = useRef<Tone.Volume | null>(null);
   const pumVol = useRef<Tone.Volume | null>(null);
   const tchaVol = useRef<Tone.Volume | null>(null);
+  // Effets stéréo et réverbération
+  const tuPan = useRef<Tone.Panner | null>(null);
+  const pumPan = useRef<Tone.Panner | null>(null);
+  const tchaPan = useRef<Tone.Panner | null>(null);
+  const pumReverb = useRef<Tone.Reverb | null>(null);
 
   useEffect(() => {
-    tuVol.current = new Tone.Volume(instrumentSettings.Tu.volume).toDestination();
-    pumVol.current = new Tone.Volume(instrumentSettings.Pum.volume).toDestination();
-    tchaVol.current = new Tone.Volume(instrumentSettings.Tcha.volume).toDestination();
+    // Création des effets
+    tuPan.current = new Tone.Panner(-0.5); // Tu à gauche
+    pumPan.current = new Tone.Panner(0);   // Pum centré
+    tchaPan.current = new Tone.Panner(0.5); // Tcha à droite
+    pumReverb.current = new Tone.Reverb({ decay: 1.8, wet: 0.18 }); // Légère réverbération
+    // Connexions
+    tuVol.current = new Tone.Volume(instrumentSettings.Tu.volume).connect(tuPan.current).toDestination();
+    pumVol.current = new Tone.Volume(instrumentSettings.Pum.volume).connect(pumReverb.current).connect(pumPan.current).toDestination();
+    tchaVol.current = new Tone.Volume(instrumentSettings.Tcha.volume).connect(tchaPan.current).toDestination();
     tuSynth.current = new Tone.MembraneSynth(instrumentSettings.Tu.synth).connect(tuVol.current);
     pumSynth.current = new Tone.MembraneSynth(instrumentSettings.Pum.synth).connect(pumVol.current);
     tchaSynth.current = new Tone.NoiseSynth(instrumentSettings.Tcha.synth).connect(tchaVol.current);
@@ -69,6 +80,10 @@ export function useRythmicPlayer({
       tuVol.current?.dispose();
       pumVol.current?.dispose();
       tchaVol.current?.dispose();
+      tuPan.current?.dispose();
+      pumPan.current?.dispose();
+      tchaPan.current?.dispose();
+      pumReverb.current?.dispose();
     };
   }, []);
 
