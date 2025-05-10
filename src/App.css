@@ -1,6 +1,14 @@
-body {
+html, body {
+  background: #f8f8f8 !important;
+  color: #222 !important;
   margin: 0;
   padding: 0;
+}
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: #f8f8f8 !important;
+    color: #222 !important;
+  }
 }
 
 #root {
@@ -168,4 +176,15 @@ header h1 {
 
 .rhythm-explanation {
   margin: 0.5rem 0;
+}
+
+select {
+  background: #fff !important;
+  color: #222 !important;
+}
+@media (prefers-color-scheme: dark) {
+  select {
+    background: #fff !important;
+    color: #222 !important;
+  }
 }
