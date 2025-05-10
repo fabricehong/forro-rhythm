@@ -11,7 +11,7 @@ interface OctagonVisualizerProps {
 }
 
 // Structure de données corrigée pour chaque rythme (ordre : 1, i, &, a, 2, i, &, a)
-const rythmesData: Record<string, Frappe[][]> = {
+export const rythmesData: Record<string, Frappe[][]> = {
   'Xote': [
     [{ type: 'Tu', instrument: 'Macepa fermé' }], // 1
     [],                                           // i

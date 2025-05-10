@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import Header from './components/Header'
 import RhythmSelector from './components/RhythmSelector'
 import OctagonVisualizer from './components/OctagonVisualizer'
 import PlaybackControls from './components/PlaybackControls'
 import RhythmExplanation from './components/RhythmExplanation'
 import './App.css'
+import { useRythmicPlayer } from './hooks/useRythmicPlayer'
+import type { Frappe } from './hooks/useRythmicPlayer'
+
+// Importation de la structure des frappes depuis OctagonVisualizer
+import { rythmesData } from './components/OctagonVisualizer'
 
 function App() {
   const [rythme, setRythme] = useState('Xote')
@@ -12,19 +17,20 @@ function App() {
   const [tempo, setTempo] = useState(100)
   const [currentStep, setCurrentStep] = useState(0)
 
-  // Avance la progression rythmique quand isPlaying est actif
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentStep(prev => (prev + 1) % 8)
-    }, 60000 / (tempo * 2)); // 8 subdivisions par mesure, tempo = noires
-    return () => clearInterval(interval)
-  }, [isPlaying, tempo])
+  // Callback pour avancer le step (utilisé par le hook audio)
+  const handleStep = useCallback((step: number) => {
+    setCurrentStep(step)
+  }, [])
 
-  // Remise à zéro du step quand on change de rythme ou qu'on stoppe
-  useEffect(() => {
-    setCurrentStep(0)
-  }, [rythme, isPlaying])
+  // Structure de frappes pour le rythme sélectionné
+  const frappes: Frappe[][] = rythmesData[rythme] || Array(8).fill([])
+
+  useRythmicPlayer({
+    rythme: frappes,
+    tempo,
+    isPlaying,
+    onStep: handleStep,
+  })
 
   const handlePlayPause = () => setIsPlaying(p => !p)
   const handleStop = () => { setIsPlaying(false); setCurrentStep(0); }
