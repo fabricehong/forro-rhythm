@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Frappe {
+export interface Frappe {
   type: 'Tu' | 'Pum' | 'Tcha';
   instrument: string;
 }
