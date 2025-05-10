@@ -8,6 +8,7 @@ interface Frappe {
 interface OctagonVisualizerProps {
   rythme: string;
   currentStep?: number | null;
+  showLegend?: boolean;
 }
 
 // Structure de données corrigée pour chaque rythme (ordre : 1, i, &, a, 2, i, &, a)
@@ -93,12 +94,17 @@ const legendBeats = [
 // Labels des subdivisions (ordre horaire)
 const labels = ['1', 'i', '&', 'a', '2', 'i', '&', 'a'];
 
-// Beat types (pour affichage)
-const beatTypes: Record<number, { color: string; r: number } | undefined> = {
-  0: { color: '#6C63FF', r: 18 }, // Beat 1 (violet, grand)
-  2: { color: '#4CAF50', r: 13 }, // & (vert, petit)
-  4: { color: '#6C63FF', r: 18 }, // Beat 2 (violet, grand)
-  6: { color: '#4CAF50', r: 13 }, // & (vert, petit)
+// Configuration centralisée pour la visualisation
+const visualConfig = {
+  Tu: { color: colors['Tu'], r: 20, strokeWidth: 3 },
+  Pum: { color: colors['Pum'], r: 20, strokeWidth: 3 },
+  Tcha: { color: colors['Tcha'], r: 21, strokeWidth: 3 },
+  beat: {
+    0: { color: '#6C63FF', r: 16 }, // Beat 1
+    2: { color: '#4CAF50', r: 13 }, // &
+    4: { color: '#6C63FF', r: 16 }, // Beat 2
+    6: { color: '#4CAF50', r: 13 }, // &
+  }
 };
 
 // Calcul des coordonnées des 8 sommets de l'octogone
@@ -114,7 +120,7 @@ const getOctagonPoints = (cx: number, cy: number, r: number) => {
   return points;
 };
 
-const OctagonVisualizer: React.FC<OctagonVisualizerProps> = ({ rythme, currentStep }) => {
+const OctagonVisualizer: React.FC<OctagonVisualizerProps> = ({ rythme, currentStep, showLegend = true }) => {
   const points = getOctagonPoints(150, 150, 100);
   const frappes = rythmesData[rythme] || Array(8).fill([]);
 
@@ -140,13 +146,13 @@ const OctagonVisualizer: React.FC<OctagonVisualizerProps> = ({ rythme, currentSt
         )}
         {/* Beats (sous les instruments) */}
         {points.map((p, i) =>
-          beatTypes[i] ? (
+          visualConfig.beat[i as keyof typeof visualConfig.beat] ? (
             <circle
               key={"beat-" + i}
               cx={p.x}
               cy={p.y}
-              r={beatTypes[i]!.r}
-              fill={beatTypes[i]!.color}
+              r={visualConfig.beat[i as keyof typeof visualConfig.beat].r}
+              fill={visualConfig.beat[i as keyof typeof visualConfig.beat].color}
               stroke="#fff"
               strokeWidth={2}
               style={{ zIndex: 1 }}
@@ -161,10 +167,10 @@ const OctagonVisualizer: React.FC<OctagonVisualizerProps> = ({ rythme, currentSt
                 key={i + '-' + f.type}
                 cx={p.x}
                 cy={p.y}
-                r={f.type === 'Tcha' ? 18 : 26 - j * 6}
+                r={visualConfig[f.type].r - j * 6}
                 fill="none"
-                stroke={colors[f.type]}
-                strokeWidth={f.type === 'Tcha' ? 4 : 5}
+                stroke={visualConfig[f.type].color}
+                strokeWidth={visualConfig[f.type].strokeWidth}
                 style={{ zIndex: 2 + j, background: 'white' }}
               />
             ))
@@ -185,41 +191,45 @@ const OctagonVisualizer: React.FC<OctagonVisualizerProps> = ({ rythme, currentSt
         ))}
       </svg>
       {/* Légende instruments */}
-      <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem', alignItems: 'center' }}>
-        {legendInstruments.map((item, idx) => (
-          <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <svg width={32} height={32}>
-              <circle
-                cx={16}
-                cy={16}
-                r={item.r}
-                fill={item.fill}
-                stroke={item.color}
-                strokeWidth={item.strokeWidth}
-              />
-            </svg>
-            <span style={{ fontSize: 15 }}>{item.label}</span>
+      {showLegend && (
+        <>
+          <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem', alignItems: 'center' }}>
+            {legendInstruments.map((item, idx) => (
+              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <svg width={32} height={32}>
+                  <circle
+                    cx={16}
+                    cy={16}
+                    r={item.r}
+                    fill={item.fill}
+                    stroke={item.color}
+                    strokeWidth={item.strokeWidth}
+                  />
+                </svg>
+                <span style={{ fontSize: 15 }}>{item.label}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {/* Légende beats */}
-      <div style={{ display: 'flex', gap: '2rem', marginTop: '0.5rem', alignItems: 'center' }}>
-        {legendBeats.map((item, idx) => (
-          <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <svg width={32} height={32}>
-              <circle
-                cx={16}
-                cy={16}
-                r={item.r}
-                fill={item.fill ? item.color : 'none'}
-                stroke={item.fill ? item.color : '#888'}
-                strokeWidth={item.fill ? 2 : 4}
-              />
-            </svg>
-            <span style={{ fontSize: 15 }}>{item.label}</span>
+          {/* Légende beats */}
+          <div style={{ display: 'flex', gap: '2rem', marginTop: '0.5rem', alignItems: 'center' }}>
+            {legendBeats.map((item, idx) => (
+              <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <svg width={32} height={32}>
+                  <circle
+                    cx={16}
+                    cy={16}
+                    r={item.r}
+                    fill={item.fill ? item.color : 'none'}
+                    stroke={item.fill ? item.color : '#888'}
+                    strokeWidth={item.fill ? 2 : 4}
+                  />
+                </svg>
+                <span style={{ fontSize: 15 }}>{item.label}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };

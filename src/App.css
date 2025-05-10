@@ -1,7 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -39,4 +44,128 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Footer fixe pour les contrôles */
+.footer-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.07);
+  z-index: 100;
+}
+.footer-controls button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+  color: #333;
+  transition: color 0.2s;
+}
+.footer-controls button:active {
+  color: #6C63FF;
+}
+.tempo-slider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+/* Responsive octogone et toggles */
+.app-root {
+  padding-bottom: 90px; /* espace pour le footer */
+}
+.mobile-toggles {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 0.5rem 0;
+}
+.toggle-btn {
+  background: #f4f4f4;
+  border: 1px solid #bbb;
+  border-radius: 20px;
+  padding: 0.4em 1.2em;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+.toggle-btn:active {
+  background: #e0e0ff;
+  border-color: #6C63FF;
+}
+
+@media (max-width: 600px) {
+  .footer-controls {
+    gap: 1rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+  }
+  .tempo-slider {
+    min-width: 80px;
+    font-size: 0.95rem;
+  }
+  .app-root {
+    padding-bottom: 70px;
+  }
+  .mobile-toggles {
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Pour masquer la légende et la description sur mobile par défaut, on gère via JS (state) */
+
+.tempo-bar {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  width: 100vw;
+  background: rgba(255,255,255,0.97);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  z-index: 101;
+  box-shadow: 0 -1px 8px rgba(0,0,0,0.04);
+}
+@media (max-width: 600px) {
+  .tempo-bar {
+    bottom: 54px;
+    font-size: 0.95rem;
+    padding: 0.3rem 0.2rem 0.3rem 0.2rem;
+  }
+}
+
+/* Ajustements du header et des espacements */
+header {
+  margin: 0.5rem 0 !important;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Réduction des espacements entre les sections */
+.rhythm-selector {
+  margin: 0.5rem 0;
+}
+
+.octagon-container {
+  margin: 0.5rem 0;
+}
+
+.rhythm-explanation {
+  margin: 0.5rem 0;
 }

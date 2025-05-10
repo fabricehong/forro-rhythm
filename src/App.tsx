@@ -2,13 +2,11 @@ import { useState, useCallback } from 'react'
 import Header from './components/Header'
 import RhythmSelector from './components/RhythmSelector'
 import OctagonVisualizer from './components/OctagonVisualizer'
-import PlaybackControls from './components/PlaybackControls'
+import FooterControls from './components/PlaybackControls'
 import RhythmExplanation from './components/RhythmExplanation'
 import './App.css'
 import { useRythmicPlayer } from './hooks/useRythmicPlayer'
 import type { Frappe } from './hooks/useRythmicPlayer'
-
-// Importation de la structure des frappes depuis OctagonVisualizer
 import { rythmesData } from './components/OctagonVisualizer'
 
 function App() {
@@ -16,13 +14,13 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [tempo, setTempo] = useState(100)
   const [currentStep, setCurrentStep] = useState(0)
+  const [showLegend, setShowLegend] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
 
-  // Callback pour avancer le step (utilisé par le hook audio)
   const handleStep = useCallback((step: number) => {
     setCurrentStep(step)
   }, [])
 
-  // Structure de frappes pour le rythme sélectionné
   const frappes: Frappe[][] = rythmesData[rythme] || Array(8).fill([])
 
   useRythmicPlayer({
@@ -37,18 +35,34 @@ function App() {
   const handleTempoChange = (t: number) => setTempo(t)
 
   return (
-    <div>
+    <div className="app-root">
       <Header />
       <RhythmSelector selected={rythme} onChange={setRythme} />
-      <OctagonVisualizer rythme={rythme} currentStep={isPlaying ? currentStep : null} />
-      <PlaybackControls
+      <OctagonVisualizer rythme={rythme} currentStep={isPlaying ? currentStep : null} showLegend={showLegend} />
+      <div className="mobile-toggles">
+        <button onClick={() => setShowLegend(l => !l)} className="toggle-btn">{showLegend ? 'Cacher' : 'Légende'}</button>
+        <button onClick={() => setShowDescription(d => !d)} className="toggle-btn">{showDescription ? 'Cacher' : 'Description'}</button>
+      </div>
+      {showDescription && <RhythmExplanation rythme={rythme} />}
+      <div className="tempo-bar">
+        <label htmlFor="tempo" style={{ marginRight: 8 }}>Tempo</label>
+        <input
+          id="tempo"
+          type="range"
+          min={40}
+          max={160}
+          value={tempo}
+          onChange={e => handleTempoChange(Number(e.target.value))}
+        />
+        <span style={{ marginLeft: 8 }}>{tempo} BPM</span>
+      </div>
+      <FooterControls
         isPlaying={isPlaying}
         tempo={tempo}
         onPlayPause={handlePlayPause}
         onStop={handleStop}
         onTempoChange={handleTempoChange}
       />
-      <RhythmExplanation rythme={rythme} />
     </div>
   )
 }
