@@ -23,6 +23,12 @@ const explications: Record<string, { caractere: string }> = {
   'Arrastapé': {
     caractere: 'Rapide, bondissant, presque cavalant.'
   },
+  'Côco': {
+    caractere: 'Frappes marquées, balancement énergique, très dansant.'
+  },
+  'Eletrônico': {
+    caractere: 'Régulier, moderne, inspiré des boîtes à rythmes électroniques.'
+  },
 };
 
 const RhythmExplanation: React.FC<RhythmExplanationProps> = ({ rythme }) => {

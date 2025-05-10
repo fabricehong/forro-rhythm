@@ -157,3 +157,38 @@ Avec cette correction de l’ordre des subdivisions et la clarification des frap
 
 **Structure** : Tu – Tcha – Pum – Pum/Tcha  
 **Caractère** : rapide, bondissant ; impression de “course” rythmique — un xote accéléré et plus insistant
+
+---
+
+### 6. Côco
+
+| Position | Nom | Frappe   | Instrument    | Rôle rythmique               |
+| -------- | --- | -------- | ------------- | ---------------------------- |
+| 0        | 1   | **Pum**  | Macepa ouvert | Temps fort principal         |
+| 1        | (i) | –        | –             | Syncope                      |
+| 2        | &   | –        | –             | Contretemps (silence)        |
+| 3        | (a) | **Tu**   | Macepa fermé  | Syncope haute                |
+| 4        | 2   | **Tcha** | Bacalhau      | Temps fort secondaire (aigu) |
+| 5        | (i) | –        | –             | Syncope                      |
+| 6        | &   | –        | –             | Contretemps (silence)        |
+| 7        | (a) | **Pum**  | Macepa ouvert | Syncope basse                |
+**Structure** : Pum – Tu – Tcha – Tcha - Pum  
+**Caractère** : frappes marquées, balancement énergique, très dansant
+
+---
+
+### 7. Eletrônico
+
+| Position | Nom  | Frappe   | Instrument      | Rôle rythmique              |
+|----------|------|----------|----------------|-----------------------------|
+| 0        | 1    | **Tcha** | Bacalhau       | Temps fort secondaire (aigu) |
+| 1        | (i)  | –        | –              | Syncope                      |
+| 2        | &    | –        | –              | Contretemps (silence)        |
+| 3        | (a)  | **Tcha** | Bacalhau       | Syncope aiguë                |
+| 4        | 2    | **Pum**  | Macepa ouvert  | Temps fort principal         |
+| 5        | (i)  | –        | –              | Syncope                      |
+| 6        | &    | **Pum**  | Macepa ouvert  | Syncope basse                |
+| 7        | (a)  | –        | –              | Syncope                      |
+
+**Structure** : Tcha – Tcha – Pum – Pum
+**Caractère** : régulier, moderne, inspiré des boîtes à rythmes électroniques

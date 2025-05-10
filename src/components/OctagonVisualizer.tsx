@@ -69,6 +69,26 @@ export const rythmesData: Record<string, Frappe[][]> = {
     ], // & (frappes simultanées)
     []                                              // a
   ],
+  'Côco': [
+    [{ type: 'Pum', instrument: 'Macepa ouvert' }], // 1
+    [],                                             // i
+    [],                                             // &
+    [{ type: 'Tu', instrument: 'Macepa fermé' }],   // a
+    [{ type: 'Tcha', instrument: 'Bacalhau' }],     // 2
+    [],                                             // i
+    [],                                             // &
+    [{ type: 'Pum', instrument: 'Macepa ouvert' }], // a
+  ],
+  'Eletrônico': [
+    [{ type: 'Tcha', instrument: 'Bacalhau' }],     // 1
+    [],                                             // i
+    [],                                             // &
+    [{ type: 'Tcha', instrument: 'Bacalhau' }],     // a
+    [{ type: 'Pum', instrument: 'Macepa ouvert' }], // 2
+    [],                                             // i
+    [{ type: 'Pum', instrument: 'Macepa ouvert' }], // &
+    [],                                             // a
+  ],
 };
 
 // Couleurs pour chaque frappe (contour)

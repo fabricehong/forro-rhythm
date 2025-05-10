@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RhythmSelector: React.FC<{ selected: string; onChange: (r: string) => void }> = ({ selected, onChange }) => {
-  const rythmes = ['Xote', 'Baião', 'Forró/Rojão', 'Xaxado', 'Arrastapé'];
+  const rythmes = ['Xote', 'Baião', 'Forró/Rojão', 'Xaxado', 'Arrastapé', 'Côco', 'Eletrônico'];
   return (
     <div style={{ textAlign: 'center', margin: '1rem 0' }}>
       <label htmlFor="rythme-select">Choisis un rythme : </label>
