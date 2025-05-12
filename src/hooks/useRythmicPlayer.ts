@@ -25,7 +25,7 @@ export const instrumentSettings = {
     }
   },
   Tcha: {
-    volume: -17,
+    volume: -22,
     synth: {
       noise: { type: 'white' as 'white' },
       envelope: { attack: 0.001, decay: 0.08, sustain: 0, release: 0.01 }
