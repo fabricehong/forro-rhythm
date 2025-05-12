@@ -9,7 +9,7 @@ export type Frappe = {
 // Réglages des instruments (volume + paramètres synthé)
 export const instrumentSettings = {
   Tu: {
-    volume: -3,
+    volume: 0,
     synth: {
       pitchDecay: 0.01,
       octaves: 2,
@@ -17,7 +17,7 @@ export const instrumentSettings = {
     }
   },
   Pum: {
-    volume: -5,
+    volume: -2,
     synth: {
       pitchDecay: 0.2,
       octaves: 1.2,
@@ -25,7 +25,7 @@ export const instrumentSettings = {
     }
   },
   Tcha: {
-    volume: -25,
+    volume: -17,
     synth: {
       noise: { type: 'white' as 'white' },
       envelope: { attack: 0.001, decay: 0.08, sustain: 0, release: 0.01 }
